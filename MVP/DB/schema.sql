@@ -1,0 +1,25 @@
+DROP DATABASE If EXISTS mvp;
+
+CREATE DATABASE mvp;
+
+\c mvp;
+
+DROP TABLE IF EXISTS live, pump;
+
+CREATE TABLE live(
+  id SERIAL PRIMARY KEY,
+  baby_name VARCHAR(50) NOT NULL,
+  time_fed TIMESTAMPTZ DEFAULT Now(),
+  side VARCHAR(50) NOT NULL,
+  duration INT NOT NULL
+);
+
+CREATE TABLE pump(
+  id SERIAL PRIMARY KEY,
+  side VARCHAR(50) NOT NULL,
+  time_pumped TIMESTAMPTZ DEFAULT Now(),
+  duration INT NOT NULL,
+  amount INT NOT NULL,
+  refrigerated BOOLEAN NOT NULL,
+  frozen BOOLEAN NOT NULL
+);
