@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import { Container, ButtonGroup, Button, Stack, Box, Modal, Typography, TextField, Select, MenuItem, InputLabel} from '@mui/material/';
-import styled from '@emotion/styled'
-import './App.css'
+import styled from '@emotion/styled';
+import './App.css';
+import axios from 'axios';
 
 const NewButton = styled.button`
   background-color: ;
@@ -28,11 +29,11 @@ const style = {
 function PumpForm(props) {
 
   const [side, setSide] = useState('left');
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(new Date().toLocaleString());
   const [seconds, setSeconds] = useState(0);
   const [amount, setAmount] = useState(0);
   const [unit, setUnit] = useState('oz');
-  const [between, setBetween] = useState(0);
+  const [storage, setStorage] =useState('Freezer');
   const [isActive, setIsActive] = useState(false);
 
   function toggle() {
@@ -47,6 +48,8 @@ function PumpForm(props) {
   function handleSubmit(e) {
     e.preventDefault();
     alert(`Pumped for ${seconds} seconds on ${side} side yielding ${amount} ${unit}`);
+    axios.post('/api/pump', {time: time, side: side, amount: amount, units: unit, duration: seconds, storage: storage})
+    .then(props.onSetOpen);
   }
 
   useEffect(() => {
@@ -83,6 +86,7 @@ function PumpForm(props) {
               <MenuItem value={'both'}>Both</MenuItem>
           </Select>
             <TextField
+              onChange={(event)=>{setTime(event.target.value)}}
               required
               id="outlined-required"
               label="Current Date/Time"
@@ -107,6 +111,17 @@ function PumpForm(props) {
             >
               <MenuItem value={'ml'}>ML</MenuItem>
               <MenuItem value={'oz'}>Ounces</MenuItem>
+            </Select>
+            <InputLabel id="pumping-storage-select-label">Storage</InputLabel>
+            <Select
+              labelId="pumping-storage-select-label"
+              id="demo-simple-select"
+              value={storage}
+              label="Storage"
+              onChange={(event)=>{setStorage(event.target.value)}}
+            >
+              <MenuItem value={'Fridge'}>Fridge</MenuItem>
+              <MenuItem value={'Freezer'}>Freezer</MenuItem>
             </Select>
             <TextField
               onChange={(event)=>{setSeconds(event.target.value)}}

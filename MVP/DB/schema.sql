@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS live, pump;
 CREATE TABLE live(
   id SERIAL PRIMARY KEY,
   baby_name VARCHAR(50) NOT NULL,
-  time_fed TIMESTAMPTZ DEFAULT Now(),
+  time_fed VARCHAR(100) NOT NULL,
   side VARCHAR(50) NOT NULL,
   duration INT NOT NULL
 );
@@ -17,9 +17,9 @@ CREATE TABLE live(
 CREATE TABLE pump(
   id SERIAL PRIMARY KEY,
   side VARCHAR(50) NOT NULL,
-  time_pumped TIMESTAMPTZ DEFAULT Now(),
+  time_pumped VARCHAR(100) NOT NULL,
   duration INT NOT NULL,
-  amount INT NOT NULL,
-  refrigerated BOOLEAN NOT NULL,
-  frozen BOOLEAN NOT NULL
+  amount DECIMAL NOT NULL,
+  units VARCHAR(10) NOT NULL,
+  storage VARCHAR(50) NOT NULL
 );

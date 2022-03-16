@@ -54,7 +54,7 @@ function App() {
           <NewButton>View Freezer</NewButton>
         </NavLink>
         <NavLink className="nav-link" to="/records">
-          <NewButton>All Records</NewButton>
+          <NewButton>View Live Records</NewButton>
         </NavLink>
       </Stack>
       </header>

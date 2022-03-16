@@ -22,12 +22,12 @@ ReactDOM.render(
       />
       <Route path="/freezer" element={
         <React.StrictMode>
-          <Fridge />
+          <Freezer />
         </React.StrictMode>}
       />
       <Route path="/records" element={
         <React.StrictMode>
-          <Fridge />
+          <Records />
         </React.StrictMode>}
       />
     </Routes>

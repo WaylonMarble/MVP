@@ -1,5 +1,5 @@
-const { Pool } = require('pg')
-const config = require('../config.js')
+import { Pool } from 'pg'
+import config from '../config.js'
 
 const pool = new Pool({
   host: config.host,
@@ -10,4 +10,4 @@ const pool = new Pool({
 
 
 
-module.exports = pool
+export default pool;

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Container, ButtonGroup, Button, Stack, Box, Modal, Typography, TextField} from '@mui/material/';
 import styled from '@emotion/styled'
 import './App.css'
+import axios from 'axios';
 
 const NewButton = styled.button`
   background-color: ;
@@ -28,10 +29,9 @@ const style = {
 function LiveForm(props) {
 
   const [name, setName] = useState('Baby Name');
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(new Date().toLocaleString());
   const [side, setSide] = useState('Feeding Side');
   const [seconds, setSeconds] = useState(0);
-  const [between, setBetween] = useState(0);
   const [isActive, setIsActive] = useState(false);
 
   function toggle() {
@@ -46,6 +46,8 @@ function LiveForm(props) {
   function handleSubmit(e) {
     e.preventDefault();
     alert(`${name} ate on ${side} side for ${seconds} seconds`);
+    axios.post('/api/live', {name: name, time: time, side: side, duration: seconds})
+    .then(props.onSetOpen);
   }
 
   useEffect(() => {
@@ -78,6 +80,7 @@ function LiveForm(props) {
               margin="normal"
             />
             <TextField
+              onChange={(event)=>{setTime(event.target.value)}}
               required
               id="outlined-required"
               label="Current Date/Time"
