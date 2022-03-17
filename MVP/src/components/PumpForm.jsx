@@ -3,6 +3,7 @@ import { Container, ButtonGroup, Button, Stack, Box, Modal, Typography, TextFiel
 import styled from '@emotion/styled';
 import './App.css';
 import axios from 'axios';
+import Camera from './Camera';
 
 const NewButton = styled.button`
   background-color: ;
@@ -35,6 +36,8 @@ function PumpForm(props) {
   const [unit, setUnit] = useState('oz');
   const [storage, setStorage] =useState('Freezer');
   const [isActive, setIsActive] = useState(false);
+  const [camera, setCamera] = useState(false);
+  const [image, setImage] = useState('');
 
   function toggle() {
     setIsActive(!isActive);
@@ -50,6 +53,14 @@ function PumpForm(props) {
     alert(`Pumped for ${seconds} seconds on ${side} side yielding ${amount} ${unit}`);
     axios.post('/api/pump', {time: time, side: side, amount: amount, units: unit, duration: seconds, storage: storage})
     .then(props.onSetOpen);
+  }
+
+  function cameraOpen() {
+    setCamera(!camera);
+  }
+
+  function changeImage(url) {
+    setImage(url);
   }
 
   useEffect(() => {
@@ -71,20 +82,22 @@ function PumpForm(props) {
         aria-labelledby="modal-live-feed"
         aria-describedby="modal-modal-description"
       >
-        <Box component="form" sx={style}>
+        <Box component="form" sx={style} >
           <div>
-          <InputLabel id="pumping-side-select-label">Pumping Side</InputLabel>
-          <Select
+          {/* <InputLabel id="pumping-side-select-label">Pumping Side</InputLabel> */}
+          <TextField
+              select
               labelId="pumping-side-select-label"
               id="demo-simple-select"
               value={side}
               label="Pumping Side"
               onChange={(event)=>{setSide(event.target.value)}}
+              size="small"
             >
               <MenuItem value={'left'}>Right</MenuItem>
               <MenuItem value={'right'}>Left</MenuItem>
               <MenuItem value={'both'}>Both</MenuItem>
-          </Select>
+          </TextField>
             <TextField
               onChange={(event)=>{setTime(event.target.value)}}
               required
@@ -92,6 +105,10 @@ function PumpForm(props) {
               label="Current Date/Time"
               value={new Date().toLocaleString()}
               margin="normal"
+              sx={{width: '65%', marginLeft: 2}}
+              size="small"
+              InputProps={{ style: { fontSize: 'clamp(.85rem, 2.5vw, 1rem)' } }}
+              InputLabelProps={{ style: { fontSize: 'clamp(.85rem, 2.5vw, 1rem)' } }}
             />
             <TextField
               onChange={(event)=>{setAmount(event.target.value)}}
@@ -100,20 +117,26 @@ function PumpForm(props) {
               label="Amount Pumped"
               value={amount}
               margin="normal"
+              size="small"
+              InputProps={{ style: { fontSize: '1rem' } }}
+              InputLabelProps={{ style: { fontSize: '1rem' } }}
             />
-            <InputLabel id="pumping-unit-select-label">Pumping Units</InputLabel>
-            <Select
+            {/* <InputLabel id="pumping-unit-select-label">Pumping Units</InputLabel> */}
+            <TextField
+              select
               labelId="pumping-unit-select-label"
               id="demo-simple-select"
               value={unit}
-              label="Amount"
+              label="Units"
               onChange={(event)=>{setUnit(event.target.value)}}
+              size="small"
             >
               <MenuItem value={'ml'}>ML</MenuItem>
               <MenuItem value={'oz'}>Ounces</MenuItem>
-            </Select>
+            </TextField>
             <InputLabel id="pumping-storage-select-label">Storage</InputLabel>
-            <Select
+            <TextField
+              select
               labelId="pumping-storage-select-label"
               id="demo-simple-select"
               value={storage}
@@ -122,7 +145,7 @@ function PumpForm(props) {
             >
               <MenuItem value={'Fridge'}>Fridge</MenuItem>
               <MenuItem value={'Freezer'}>Freezer</MenuItem>
-            </Select>
+            </TextField>
             <TextField
               onChange={(event)=>{setSeconds(event.target.value)}}
               required
@@ -130,9 +153,24 @@ function PumpForm(props) {
               label="Duration In Seconds"
               value={seconds}
               margin="normal"
+              size="small"
+              InputProps={{ style: { fontSize: '1rem' } }}
+              InputLabelProps={{ style: { fontSize: '1rem' } }}
             />
+            <Box sx={{
+                      width: '75vw',
+                      height: '30vh',
+                      bgcolor: 'background.paper',
+                      border: '2px solid #000',
+                      backgroundImage: `url(${image})`,
+                      backgroundSize: 'contain',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundPosition: 'center'
+                      }}></Box>
             <NewButton type="button" onClick={toggle}>{isActive ? "Stop Timer" : "Start Timer"}</NewButton>
             <NewButton type="button" onClick={reset}>&#8617;</NewButton>
+            <NewButton type='button' onClick={cameraOpen}>&#128247;</NewButton>
+            <Camera open={camera} onSetOpen={cameraOpen} setImage={changeImage}/>
             <NewButton type="submit" onClick={handleSubmit}>Submit</NewButton>
           </div>
         </Box>
