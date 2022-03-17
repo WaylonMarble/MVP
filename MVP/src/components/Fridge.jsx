@@ -26,7 +26,7 @@ function Fridge() {
   const [data, setData] = useState(['']);
 
   useEffect(() => {
-    axios.get("/api/pump/fridge")
+    axios.get("http://localhost:3001/api/pump/fridge")
       .then((response) => setData(response.data))
       .catch((error) => console.log(error));
   }, []);

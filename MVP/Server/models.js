@@ -1,4 +1,4 @@
-import db from '../DB'
+const db = require('../DB')
 
 // Add a live session
 const addLive = (params, cb) => {
@@ -57,4 +57,4 @@ const addPump = (params, cb) => {
   })
 };
 
-export default { addLive, getLive, getFridge, getFreezer, addPump }
+module.exports = { addLive, getLive, getFridge, getFreezer, addPump }

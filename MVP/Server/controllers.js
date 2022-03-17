@@ -1,4 +1,4 @@
-import models from './models';
+const models = require('./models.js');
 
 const postLive = (req, res) => {
   console.log(req.body);
@@ -57,4 +57,4 @@ const postPump = (req, res) => {
   })
 };
 
-export default { postLive, getLive, getFridge, getFreezer, postPump };
+module.exports = { postLive, getLive, getFridge, getFreezer, postPump };

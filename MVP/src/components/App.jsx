@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Container, ButtonGroup, Button, Stack, Box, Modal, Typography, TextField} from '@mui/material/';
 import { Link, NavLink } from "react-router-dom";
 import styled from '@emotion/styled'
-import logo from './Baby-Biberon.svg'
+import logo from './Baby-Biberon (1).svg'
 import './App.css'
 import LiveForm from './LiveForm'
 import PumpForm from './PumpForm'

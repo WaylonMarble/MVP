@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.299e0357.css",
+    "main.js": "/static/js/main.e364e860.js",
+    "static/js/787.c4622cdd.chunk.js": "/static/js/787.c4622cdd.chunk.js",
+    "static/media/Baby-Biberon (1).svg": "/static/media/Baby-Biberon (1).315087bf7c441606fde41702fd5243d8.svg",
+    "index.html": "/index.html",
+    "main.299e0357.css.map": "/static/css/main.299e0357.css.map",
+    "main.e364e860.js.map": "/static/js/main.e364e860.js.map",
+    "787.c4622cdd.chunk.js.map": "/static/js/787.c4622cdd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.299e0357.css",
+    "static/js/main.e364e860.js"
+  ]
+}
