@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Container, ButtonGroup, Button, Stack, Box, Modal, Typography, TextField} from '@mui/material/';
+import { MenuItem, ButtonGroup, Button, Stack, Box, Modal, Typography, TextField} from '@mui/material/';
 import styled from '@emotion/styled'
 import './App.css'
 import axios from 'axios';
@@ -86,15 +86,24 @@ function LiveForm(props) {
               label="Current Date/Time"
               value={new Date().toLocaleString()}
               margin="normal"
+              sx={{width: '65%'}}
+              size="large"
+              InputProps={{ style: { fontSize: 'clamp(.85rem, 2.5vw, 1rem)' } }}
+              InputLabelProps={{ style: { fontSize: 'clamp(.85rem, 2.5vw, 1rem)' } }}
             />
             <TextField
-              onChange={(event)=>{setSide(event.target.value)}}
-              required
-              id="outlined-required"
-              label="Feeding Side"
+              select
+              labelId="pumping-side-select-label"
+              id="demo-simple-select"
               value={side}
-              margin="normal"
-            />
+              label="Side Fed On"
+              onChange={(event)=>{setSide(event.target.value)}}
+              size="large"
+              sx={{width: '65%'}}
+            >
+              <MenuItem value={'left'}>Right</MenuItem>
+              <MenuItem value={'right'}>Left</MenuItem>
+          </TextField>
             <TextField
             onChange={(event)=>{setSeconds(event.target.value)}}
               required

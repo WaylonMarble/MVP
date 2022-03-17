@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import './App.css';
 import axios from 'axios';
 import Camera from './Camera';
+import Cropper from './Cropper'
 
 const NewButton = styled.button`
   background-color: ;
@@ -37,6 +38,7 @@ function PumpForm(props) {
   const [storage, setStorage] =useState('Freezer');
   const [isActive, setIsActive] = useState(false);
   const [camera, setCamera] = useState(false);
+  const [cropper, setCropper] = useState(false);
   const [image, setImage] = useState('');
 
   function toggle() {
@@ -57,6 +59,10 @@ function PumpForm(props) {
 
   function cameraOpen() {
     setCamera(!camera);
+  }
+
+  function cropperOpen() {
+    setCropper(!cropper);
   }
 
   function changeImage(url) {
@@ -93,6 +99,7 @@ function PumpForm(props) {
               label="Pumping Side"
               onChange={(event)=>{setSide(event.target.value)}}
               size="small"
+              sx={{width: '65%'}}
             >
               <MenuItem value={'left'}>Right</MenuItem>
               <MenuItem value={'right'}>Left</MenuItem>
@@ -105,7 +112,7 @@ function PumpForm(props) {
               label="Current Date/Time"
               value={new Date().toLocaleString()}
               margin="normal"
-              sx={{width: '65%', marginLeft: 2}}
+              sx={{width: '65%'}}
               size="small"
               InputProps={{ style: { fontSize: 'clamp(.85rem, 2.5vw, 1rem)' } }}
               InputLabelProps={{ style: { fontSize: 'clamp(.85rem, 2.5vw, 1rem)' } }}
@@ -134,7 +141,7 @@ function PumpForm(props) {
               <MenuItem value={'ml'}>ML</MenuItem>
               <MenuItem value={'oz'}>Ounces</MenuItem>
             </TextField>
-            <InputLabel id="pumping-storage-select-label">Storage</InputLabel>
+            <InputLabel id="pumping-storage-select-label"></InputLabel>
             <TextField
               select
               labelId="pumping-storage-select-label"
@@ -166,7 +173,8 @@ function PumpForm(props) {
                       backgroundSize: 'contain',
                       backgroundRepeat: 'no-repeat',
                       backgroundPosition: 'center'
-                      }}></Box>
+                      }} onClick={cropperOpen}></Box>
+            {/* <Cropper open={cropper} onSetOpen={cropperOpen} image={image} setImage={changeImage}/> */}
             <NewButton type="button" onClick={toggle}>{isActive ? "Stop Timer" : "Start Timer"}</NewButton>
             <NewButton type="button" onClick={reset}>&#8617;</NewButton>
             <NewButton type='button' onClick={cameraOpen}>&#128247;</NewButton>
